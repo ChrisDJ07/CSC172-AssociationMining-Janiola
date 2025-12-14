@@ -1,5 +1,5 @@
 # CSC172 Association Rule Mining Project Proposal
-**Student:** [Your Name], [ID]  
+**Student:** Christian Dave J. Janiola, 2022-0137  
 **Date:** December 12, 2025
 
 ## 1. Project Title 
@@ -21,11 +21,11 @@ This project aims to discover association rules among anime titles using user ra
 - Provide insights into viewing habits, genre linkages, and potential recommendation patterns.
 
 ## 4. Dataset Plan
-- Source: [Anime Recommendations Database – Kaggle](https://www.kaggle.com/datasets/CooperUnion/anime-recommendations-database) (~10K transactions, 169 items)
+- Source: [Anime Recommendations Database – Kaggle](https://www.kaggle.com/datasets/CooperUnion/anime-recommendations-database)
     - Files Used:
         - rating.csv — user–anime rating history
         - anime.csv — anime metadata (names, genres, type, episodes)
-- Domain: GOnline media consumption / recommendation systems
+- Domain: Online media consumption / recommendation systems
 - Acquisition: Downloaded directly from Kaggle. Will merge rating.csv with anime.csv to convert each user's watched anime into a transaction list.
 
 #### To reduce computational load, analysis will focus on:

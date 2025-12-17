@@ -1,9 +1,9 @@
 # Mining Anime Co-Watching and Recommendation Patterns Using the Apriori Algorithm
 
-**CSC172 – Data Mining and Analysis (Final Project)**
-*Mindanao State University – Iligan Institute of Technology*
-**Student:** Christian Dave Janiola, 2022-0137
-**Semester:** AY 2025–2026, 1st Semester
+**CSC172 Data Mining and Analysis Final Project**  
+*Mindanao State University - Iligan Institute of Technology*  
+**Student:** Christian Dave Janiola, 2022-0137  
+**Semester:** AY 2025-2026 Sem 1  
 
 ---
 

@@ -8,11 +8,11 @@
 
 | Milestone              | Status        | Notes                                        |
 | ---------------------- | ------------- | -------------------------------------------- |
-| Dataset Preparation    | ✅ Completed   | Anime ratings converted to transactions      |
-| Data Preprocessing     | ✅ Completed   | Filtering, merging, one-hot encoding applied |
-| EDA & Visualization    | ✅ Completed   | Transaction length + item frequency analysis |
-| Apriori Implementation | ✅ Completed   | Frequent itemsets and rules generated        |
-| Rule Evaluation        | ✅ Completed | Rule filtering and interpretation ongoing    |
+| Dataset Preparation    | ✅ Completed   | Anime ratings converted to transactions      |    
+| Data Preprocessing     | ✅ Completed   | Filtering, merging, one-hot encoding applied |    
+| EDA & Visualization    | ✅ Completed   | Transaction length + item frequency analysis |    
+| Apriori Implementation | ✅ Completed   | Frequent itemsets and rules generated        |    
+| Rule Evaluation        | ✅ Completed | Rule filtering and interpretation ongoing    |    
 
 ## 1. Dataset Progress
 
@@ -66,11 +66,11 @@ User 123 → ["Naruto", "Bleach", "One Piece"]
 
 ## 4. Challenges Encountered & Solutions
 
-| Issue                | Status     | Resolution                                       |
-| -------------------- | ---------- | ------------------------------------------------ |
-| Large dataset size   | ✅ Resolved | Filtered users and popular anime                 |
-| High memory usage    | ✅ Resolved | Reduced item dimensionality + low-memory Apriori |
-| Long Apriori runtime | ✅ Resolved | Limited itemset length and tuned support         |
-| Trivial sequel rules | ✅ Resolved | Title normalization and rule filtering           |
+| Issue                | Status     | Resolution                                       |    
+| -------------------- | ---------- | ------------------------------------------------ |    
+| Large dataset size   | ✅ Resolved | Filtered users and popular anime                 |    
+| High memory usage    | ✅ Resolved | Reduced item dimensionality + low-memory Apriori |    
+| Long Apriori runtime | ✅ Resolved | Limited itemset length and tuned support         |    
+| Trivial sequel rules | ✅ Resolved | Title normalization and rule filtering           |    
 
 ## 4. Next Steps (Before Final Submission)

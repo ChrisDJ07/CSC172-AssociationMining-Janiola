@@ -5,51 +5,78 @@
 **Repository:** [Anime Recommendations Database – Kaggle](https://www.kaggle.com/datasets/CooperUnion/anime-recommendations-database)
 
 ## 📊 Current Status
-| Milestone | Status | Notes |
-|-----------|--------|-------|
-| Dataset Preparation | ✅ Completed | 53,766 transactions processed |
-| Data Preprocessing | ✅ Completed | One-hot encoded matrix ready |
-| EDA & Visualization | ✅ Completed | Item frequencies + basket sizes done |
-| Apriori Implementation | ⏳ Not Started  | Initial run next |
-| Rule Evaluation | ⏳ Not Started | Planned for next day |
 
+| Milestone              | Status        | Notes                                        |
+| ---------------------- | ------------- | -------------------------------------------- |
+| Dataset Preparation    | ✅ Completed   | Anime ratings converted to transactions      |
+| Data Preprocessing     | ✅ Completed   | Filtering, merging, one-hot encoding applied |
+| EDA & Visualization    | ✅ Completed   | Transaction length + item frequency analysis |
+| Apriori Implementation | ✅ Completed   | Frequent itemsets and rules generated        |
+| Rule Evaluation        | ⏳ In Progress | Rule filtering and interpretation ongoing    |
 
 ## 1. Dataset Progress
-- **Total transactions:** 53,766
-- **Unique items:** 100 → filtered to top 25 (lift > 1)
-- **Matrix size:** 53,766 transactions × 100 items
-- **Preprocessing applied:** removed unrated entries, keep only "liked" anime, Keep users who rated at least N anime, filter popular anime, one-hot encoding
+
+* **Total transactions:** ~50,000+ user transactions
+* **Unique items:** Top 100 anime titles (after popularity filtering)
+* **Matrix size:** ~50k transactions × 100 items (binary encoded)
+* **Preprocessing applied:**
+
+  * Removed unrated entries (rating = -1)
+  * Kept only positively rated anime
+  * Filtered users with low interaction counts
+  * Filtered popular anime titles to reduce sparsity
+  * One-hot encoding using TransactionEncoder
 
 **Sample transaction preview:**
 User 123 → ["Naruto", "Bleach", "One Piece"]
 
+## 2. Exploratory Data Analysis (EDA) Progress
 
-## 2. EDA Progress
+**Analyses Completed:**
 
-**Key Findings (so far):**
-![Item Frequency Distribution](results/item_frequencies.png)
-- Top 5 items: whole milk(25.3%), other vegetables(19.1%), rolls/buns(17.4%)
-- Average basket size: 2.4 items
-- 68% transactions contain 1-3 items
+* Distribution of transaction lengths (anime watched per user)
+* Item frequency distribution for popular anime titles
+* Identification of long-tail effects and sparsity
 
-**Current Metrics:**
-| Metric | Value |
-|--------|-------|
-| Transactions cleaned | 9,708/9,835 (98.7%) |
-| Sparsity reduced | 0.12% → 2.1% |
-| Top item support | whole milk: 0.253 |
+**Key Observations:**
 
-## 3. Challenges Encountered & Solutions
-| Issue | Status | Resolution |
-|-------|--------|------------|
-| High matrix sparsity | ✅ Fixed | Filtered to top 50 items |
-| Memory usage (1.2GB) | ✅ Fixed | Sparse matrix format |
-| Infrequent items | ⏳ Ongoing | Tuning min_support threshold |
+* Most users watch a small subset of popular anime
+* Transaction lengths are right-skewed, with a small number of highly active users
+* Filtering popular titles significantly reduced sparsity and computation time
+
+*(Visualizations include histograms and bar charts of transaction sizes and item frequencies.)*
+
+## 3. Apriori & Rule Mining Progress
+
+**Current Implementation:**
+
+* Apriori algorithm applied with tuned support thresholds
+* Maximum itemset length limited to 2 to control runtime
+* Rules evaluated using support, confidence, and lift
+
+**Post-processing:**
+
+* Rules sorted primarily by lift to identify non-random associations
+* Trivial sequel–prequel or franchise-based rules filtered using title similarity heuristics
+
+**Preliminary Results:**
+
+* Strong co-watching patterns observed among action and shōnen titles
+* Lift values greater than 1 indicate meaningful associations beyond chance
+
+## 4. Challenges Encountered & Solutions
+
+| Issue                | Status     | Resolution                                       |
+| -------------------- | ---------- | ------------------------------------------------ |
+| Large dataset size   | ✅ Resolved | Filtered users and popular anime                 |
+| High memory usage    | ✅ Resolved | Reduced item dimensionality + low-memory Apriori |
+| Long Apriori runtime | ✅ Resolved | Limited itemset length and tuned support         |
+| Trivial sequel rules | ✅ Resolved | Title normalization and rule filtering           |
 
 ## 4. Next Steps (Before Final Submission)
-- [ ] Complete co-occurrence heatmap
-- [ ] Run initial Apriori (min_support=0.02)
-- [ ] Generate top 25 rules with metrics
-- [ ] Create rule scatter plot 
-- [ ] Record 5-min demo video
-- [ ] Write complete README.md 
+
+* [ ] Finalize selection of top association rules
+* [ ] Write rule interpretations and discussion
+* [ ] Refine visualization of rule scatter plot (support vs confidence)
+* [ ] Complete README.md documentation
+* [ ] Prepare presentation / demo materials

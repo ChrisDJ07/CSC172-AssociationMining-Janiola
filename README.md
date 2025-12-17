@@ -149,8 +149,7 @@ This project demonstrates the effectiveness of association rule mining for uncov
 ---
 
 ## 7. Video Presentation
-<!-- [![Final Presentation]()]   -->
-*5-minute demo: Problem → Dataset → Methods → Key Findings → Insights*
+Presentation and Demo Link: [Final Presentation](https://youtu.be/82ulcDedhRI)    
 
 1. Agrawal, R., & Srikant, R. (1994). Fast Algorithms for Mining Association Rules. VLDB.
 2. mlxtend Documentation: [https://rasbt.github.io/mlxtend/](https://rasbt.github.io/mlxtend/)

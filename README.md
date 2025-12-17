@@ -1,157 +1,160 @@
-# [Project Title: e.g. Retail Market Basket Analysis]
-**CSC172 Data Mining and Analysis Final Project**  
-*Mindanao State University - Iligan Institute of Technology*  
-**Student:** [Your Full Name], [Student ID]  
-**Semester:** [e.g., AY 2025-2026 Sem 1]  
+# Mining Anime Co-Watching and Recommendation Patterns Using the Apriori Algorithm
+
+**CSC172 – Data Mining and Analysis (Final Project)**
+*Mindanao State University – Iligan Institute of Technology*
+**Student:** Christian Dave Janiola, 2022-0137
+**Semester:** AY 2025–2026, 1st Semester
+
+---
 
 ## Abstract
-This project implements the Apriori algorithm for association rule mining on [dataset name] containing [X] transactions. Key findings include [top rule example: "if {bread} then {butter}" with lift=2.3]. The analysis pipeline includes data preprocessing, exploratory data analysis (EDA), rule generation, and evaluation using support, confidence, lift, and conviction metrics. Business insights and actionable recommendations are derived from the strongest rules.
+
+This project applies association rule mining using the Apriori algorithm to analyze anime co-watching behavior based on user rating data from the Anime Recommendations Database. User–anime rating logs are transformed into transaction-style data, where each transaction represents a user’s set of highly rated anime. Through careful preprocessing, filtering, and rule evaluation using support, confidence, and lift, the study uncovers meaningful co-watching patterns that go beyond simple popularity or sequel relationships. The resulting rules highlight shared thematic preferences, studio influence, and genre affinities, demonstrating the potential of association rule mining for recommendation systems in online media platforms.
+
+---
 
 ## Table of Contents
-- [Abstract](#abstract)
-- [1. Introduction](#1-introduction)
-  - [1.1 Problem Statement](#11-problem-statement)
-  - [1.2 Objectives](#12-objectives)
-  - [1.3 Scope and Limitations](#13-scope-and-limitations)
-- [2. Dataset Description](#2-dataset-description)
-  - [2.1 Source and Acquisition](#21-source-and-acquisition)
-  - [2.2 Data Structure](#22-data-structure)
-  - [2.3 Sample Transactions](#23-sample-transactions)
-- [3. Methodology](#3-methodology)
-  - [3.1 Data Preprocessing](#31-data-preprocessing)
-  - [3.2 Exploratory Data Analysis](#32-exploratory-data-analysis)
-  - [3.3 Apriori Algorithm Implementation](#33-apriori-algorithm-implementation)
-  - [3.4 Evaluation Metrics](#34-evaluation-metrics)
-- [4. Results](#4-results)
-  - [4.1 Top Association Rules](#41-top-association-rules)
-  - [4.2 Key Visualizations](#42-key-visualizations)
-  - [4.3 Performance Metrics](#43-performance-metrics)
-- [5. Discussion](#5-discussion)
-  - [5.1 Business Insights](#51-business-insights)
-  - [5.2 Actionable Recommendations](#52-actionable-recommendations)
-  - [5.3 Limitations](#53-limitations)
-- [6. Conclusion](#6-conclusion)
-- [7. Video Presentation](#7-video-presentation)
-- [References](#references)
-- [Appendix: Full Results](#appendix-full-results)
 
+1. [Introduction](#1-introduction)
+2. [Dataset Description](#2-dataset-description)
+3. [Methodology](#3-methodology)
+4. [Results](#4-results)
+5. [Discussion](#5-discussion)
+6. [Conclusion](#6-conclusion)
+7. [References](#7-references)
 
+---
 
 ## 1. Introduction
+
 ### 1.1 Problem Statement
-[Describe the business problem or research question. Example: "Identify product purchase patterns in retail transactions to optimize store layout and cross-selling strategies."]
+
+Anime streaming platforms host thousands of titles, making it difficult to understand viewer preferences and co-watching behavior without automated analysis. While recommendation systems often rely on ratings or similarity scores, these approaches may miss underlying patterns in what users tend to watch together. This project addresses the problem by applying association rule mining to discover frequent and meaningful co-watching relationships among anime titles.
 
 ### 1.2 Objectives
-- Preprocess transactional data for association mining
-- Implement Apriori algorithm with parameter tuning
-- Generate and evaluate top association rules
-- Visualize patterns and derive business insights
+
+* Transform user rating histories into a transaction-based dataset suitable for association rule mining
+* Apply the Apriori algorithm to generate frequent itemsets and association rules
+* Evaluate rules using support, confidence, and lift metrics
+* Interpret co-watching patterns relevant to anime recommendation systems
 
 ### 1.3 Scope and Limitations
-**Scope:** Single snapshot analysis of grocery purchase patterns using Apriori algorithm  
-**Limitations:** No temporal analysis, static customer behavior, computational constraints on full itemset space
+
+**Scope:** The analysis focuses on positive user preferences (liked anime) using a snapshot of historical rating data.
+**Limitations:** The study does not consider temporal viewing order, demographic information, or explicit genre modeling, and results are constrained by computational limits that require filtering the dataset.
+
+---
 
 ## 2. Dataset Description
+
 ### 2.1 Source and Acquisition
-**Source:** [Groceries Dataset (UCI/Kaggle)](https://www.kaggle.com/datasets/heeraldedhia/groceries-dataset)  
-**Size:** 9,835 transactions, 169 unique items  
-**Format:** Member ID + timestamp + product name → Transaction basket format
+
+* **Source:** [Anime Recommendations Database (Kaggle)](https://www.kaggle.com/datasets/CooperUnion/anime-recommendations-database)
+* **Files Used:**
+
+  * `rating.csv` – user–anime rating history
+  * `anime.csv` – anime metadata (name, genre, type, episodes)
 
 ### 2.2 Data Structure
-Raw format (one row per item):
-member_id,date,product
-1,2023-01-01,whole milk
-1,2023-01-01,other vegetables
-2,2023-01-01,yogurt
 
-Transaction format (one row per basket):
-[['whole milk', 'other vegetables'], ['yogurt', 'whole milk']]
+* Each row in `rating.csv` represents a user rating for a specific anime.
+* Ratings of `-1` indicate watched but unrated entries and are excluded.
+* Anime IDs are merged with titles from `anime.csv` for interpretability.
 
+### 2.3 Transaction Definition
 
-### 2.3 Sample Transactions
-Transaction 1: ['whole milk', 'other vegetables', 'root vegetables']
-Transaction 2: ['yogurt', 'whole milk', 'rolls/buns']
-Transaction 3: ['sausage', 'frankfurter', 'soda']
+Each transaction corresponds to a single user and contains the list of anime titles that the user rated positively (rating ≥ 6). Example:
 
+```
+User 123 → ["Shingeki no Kyojin", "Tokyo Ghoul", "Psycho-Pass"]
+```
+
+---
 
 ## 3. Methodology
 
 ### 3.1 Data Preprocessing
-1. **Missing Value Handling:** Removed 127 incomplete transactions (1.3%)
-2. **One-Hot Encoding:** Converted to 9,708 × 169 binary transaction matrix
-3. **Item Filtering:** Retained top 50 items (support > 0.01) → 9,708 × 50 matrix
-4. **Final Dataset:** 9,708 transactions × 50 items (98.7% sparsity reduced to manageable size)
 
-**Before/After Statistics:**
-| Metric | Raw Data | Processed Data |
-|--------|----------|----------------|
-| Transactions | 9,835 | 9,708 |
-| Unique Items | 169 | 50 |
-| Density | 0.12% | 2.1% |
+* Removed unrated entries (rating = -1)
+* Retained only positively rated anime (rating ≥ 6)
+* Merged rating data with anime titles
+* Filtered to the top 100 most frequently rated anime to reduce sparsity
+* Grouped data by user to form transactions
+* Converted transactions to one-hot encoded format using `TransactionEncoder`
+
+After Statistics:
+| Metric | Processed Data |
+|--------|----------------|
+| Transactions | 60,147 |
+| Unique Items |  100 |
 
 ### 3.2 Exploratory Data Analysis
-- **Top 10 Items:** whole milk (25.3%), other vegetables (19.1%), rolls/buns (17.4%)
-- **Basket Size:** Mean=2.4 items, 68% transactions contain 1-3 items
-- **Co-occurrence:** whole milk appears with 89% of top 20 items
+
+* Analyzed transaction length distribution to understand user activity
+* Examined item frequencies to identify dominant and niche titles
+* Evaluated dataset sparsity after filtering
 
 ### 3.3 Apriori Algorithm Implementation
-**Implementation:** mlxtend.frequent_patterns.apriori() with association_rules()
 
-### 3.4 Evaluation Metrics
-- **Support:** \( \frac{\text{support}(A \cup B)}{N} \) - Absolute frequency
-- **Confidence:** \( \frac{\text{support}(A \cup B)}{\text{support}(A)} \) - Rule strength
-- **Lift:** \( \frac{\text{confidence}(A \to B)}{\text{support}(B)} \) - Rule interestingness (>1 = positive association)
+* Applied the Apriori algorithm using `mlxtend`
+* Parameters used:
 
+  * `min_support ≥ 0.15`
+  * `max_len = 2`
+* Generated association rules with:
+
+  * `confidence ≥ 0.75`
+  * `lift > 1.5`
+
+### 3.4 Rule Refinement
+
+To avoid trivial or misleading rules:
+
+* Prequel–sequel and franchise-based relationships were filtered using title normalization
+* Rules were sorted by lift and confidence to prioritize non-random, interpretable associations
+
+---
 
 ## 4. Results
+
 ### 4.1 Top Association Rules
 
-| Rank | Antecedents | Consequents | Support | Confidence | Lift | Conviction | Leverage |
-|------|-------------|-------------|---------|------------|------|------------|----------|
-| 1 | {other vegetables} | {root vegetables} | 0.023 | 0.74 | 3.15 | 3.42 | 0.017 |
-| 2 | {yogurt} | {whole milk} | 0.028 | 0.68 | 2.12 | 2.31 | 0.015 |
-| 3 | {rolls/buns} | {whole milk} | 0.032 | 0.62 | 1.98 | 2.01 | 0.016 |
-| 4 | {sausage} | {frankfurter} | 0.015 | 0.81 | 4.23 | 4.67 | 0.012 |
-| 5 | {tropical fruit} | {other vegetables} | 0.021 | 0.65 | 2.34 | 2.41 | 0.014 |
+| Antecedent          | Consequent                    | Support | Confidence | Lift |
+| ------------------- | ----------------------------- | ------- | ---------- | ---- |
+| Howl no Ugoku Shiro | Sen to Chihiro no Kamikakushi | 0.193   | 0.812      | 2.56 |
+| Tokyo Ghoul         | Shingeki no Kyojin            | 0.191   | 0.802      | 1.98 |
+| No Game No Life     | Sword Art Online              | 0.195   | 0.775      | 1.95 |
+| Mononoke Hime       | Sen to Chihiro no Kamikakushi | 0.174   | 0.782      | 2.47 |
 
-### 4.2 Key Visualizations
-![Item Frequency Distribution](results/item_frequencies.png) 
+### 4.2 Visualization
+### Transaction lenghts distribution
+![Distribution of Transaction Lengths](images/transact_len_dist.png)
 
-### 4.3 Performance Metrics
-Runtime: Preprocessing=42s, Apriori=18s, Rules=3s (Total: 63s)
-Scalability: Handles 10K+ transactions on standard laptop
+### Visualization of top association rules
 
+![Top association rules](images/top_rules_vis.png)
+
+---
 
 ## 5. Discussion
 
-### 5.1 Business Insights
-1. **Dairy Clustering:** whole milk as "hub item" (89% co-occurrence)
-2. **Vegetable Pairing:** root vegetables strongly associated with other vegetables
-3. **Breakfast Bundle:** yogurt + whole milk + rolls/buns (lift=2.1)
+The discovered rules reveal that anime co-watching behavior is strongly influenced by shared themes, studio identity, and narrative style rather than random popularity. For example, Studio Ghibli films show particularly strong associations, while darker action-oriented series exhibit consistent overlap among viewers. By filtering out sequel relationships, the analysis focuses on genuine preference-based patterns that are useful for recommendation systems.
 
-### 5.2 Actionable Recommendations
-1. **Shelf Placement:** Place root vegetables near other vegetables
-2. **Bundling:** Promote "Breakfast Pack" (yogurt + milk + rolls)
-3. **Cross-promotion:** sausage → frankfurter discount coupons
-4. **Inventory:** Stock 25% more whole milk based on pairing frequency
-
-### 5.3 Limitations
-- Single time period (no seasonality)
-- No customer demographics
-- Binary presence/absence (no quantities)
+---
 
 ## 6. Conclusion
-The Apriori algorithm successfully identified 25 actionable association rules from 9,708 grocery transactions. Strongest patterns reveal natural product groupings (lift > 3.0) suitable for retail optimization. Future work includes temporal analysis, customer segmentation, and FP-Growth comparison.
 
+This project demonstrates the effectiveness of association rule mining for uncovering meaningful co-watching patterns in anime viewing data. Through careful preprocessing, strict rule selection criteria, and domain-aware filtering, the Apriori algorithm successfully identified strong and interpretable associations. These findings can inform recommendation strategies and contribute to a deeper understanding of user behavior in online media consumption.
+
+---
 
 ## 7. Video Presentation
 [![Final Presentation](demo/CSC172_[LastName]_Final.mp4)](demo/CSC172_[LastName]_Final.mp4)  
 *5-minute demo: Problem → Dataset → Methods → Key Findings → Business Insights*
 
-## References
 1. Agrawal, R., & Srikant, R. (1994). Fast Algorithms for Mining Association Rules. VLDB.
-2. mlxtend Documentation: https://rasbt.github.io/mlxtend/
-3. Groceries Dataset: https://www.kaggle.com/datasets/heeraldedhia/groceries-dataset
+2. mlxtend Documentation: [https://rasbt.github.io/mlxtend/](https://rasbt.github.io/mlxtend/)
+3. Anime Recommendations Database: [https://www.kaggle.com/datasets/CooperUnion/anime-recommendations-database](https://www.kaggle.com/datasets/CooperUnion/anime-recommendations-database)
 
 ## Appendix: Full Results
 **Complete rules CSV:** [results/rules_top25.csv](results/rules_top25.csv)  

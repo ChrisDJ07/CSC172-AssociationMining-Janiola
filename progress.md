@@ -12,7 +12,7 @@
 | Data Preprocessing     | ✅ Completed   | Filtering, merging, one-hot encoding applied |
 | EDA & Visualization    | ✅ Completed   | Transaction length + item frequency analysis |
 | Apriori Implementation | ✅ Completed   | Frequent itemsets and rules generated        |
-| Rule Evaluation        | ⏳ In Progress | Rule filtering and interpretation ongoing    |
+| Rule Evaluation        | ✅ Completed | Rule filtering and interpretation ongoing    |
 
 ## 1. Dataset Progress
 
@@ -74,9 +74,3 @@ User 123 → ["Naruto", "Bleach", "One Piece"]
 | Trivial sequel rules | ✅ Resolved | Title normalization and rule filtering           |
 
 ## 4. Next Steps (Before Final Submission)
-
-* [ ] Finalize selection of top association rules
-* [ ] Write rule interpretations and discussion
-* [ ] Refine visualization of rule scatter plot (support vs confidence)
-* [ ] Complete README.md documentation
-* [ ] Prepare presentation / demo materials

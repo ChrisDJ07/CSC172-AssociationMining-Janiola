@@ -1,0 +1,9 @@
+antecedents,consequents,support,confidence,lift
+frozenset({'Howl no Ugoku Shiro'}),frozenset({'Sen to Chihiro no Kamikakushi'}),0.19254493158428518,0.8118471784086927,2.560709646009106
+frozenset({'Tokyo Ghoul'}),frozenset({'Shingeki no Kyojin'}),0.19064957520740852,0.8024492652204339,1.9785568564078642
+frozenset({'Noragami'}),frozenset({'Shingeki no Kyojin'}),0.16049013250868704,0.7882573901682182,1.9435646981408468
+frozenset({'Guilty Crown'}),frozenset({'Sword Art Online'}),0.15016542803464844,0.7873768633946473,1.9846767329896005
+frozenset({'Mononoke Hime'}),frozenset({'Sen to Chihiro no Kamikakushi'}),0.174372786672652,0.7819862809424396,2.4665230919211765
+frozenset({'No Game No Life'}),frozenset({'Sword Art Online'}),0.19535471428333914,0.7747082481703699,1.9527439863675817
+frozenset({'Psycho-Pass'}),frozenset({'Shingeki no Kyojin'}),0.1508803431592598,0.7684816665255313,1.8948047387271925
+frozenset({'No Game No Life'}),frozenset({'Shingeki no Kyojin'}),0.19158062746271634,0.7597415441418871,1.8732546796549185

@@ -149,14 +149,14 @@ This project demonstrates the effectiveness of association rule mining for uncov
 ---
 
 ## 7. Video Presentation
-[![Final Presentation](demo/CSC172_[LastName]_Final.mp4)](demo/CSC172_[LastName]_Final.mp4)  
-*5-minute demo: Problem → Dataset → Methods → Key Findings → Business Insights*
+<!-- [![Final Presentation]()]   -->
+*5-minute demo: Problem → Dataset → Methods → Key Findings → Insights*
 
 1. Agrawal, R., & Srikant, R. (1994). Fast Algorithms for Mining Association Rules. VLDB.
 2. mlxtend Documentation: [https://rasbt.github.io/mlxtend/](https://rasbt.github.io/mlxtend/)
 3. Anime Recommendations Database: [https://www.kaggle.com/datasets/CooperUnion/anime-recommendations-database](https://www.kaggle.com/datasets/CooperUnion/anime-recommendations-database)
 
 ## Appendix: Full Results
-**Complete rules CSV:** [results/rules_top25.csv](results/rules_top25.csv)  
+**Complete final rules CSV:** [Final top rules](results/final_rules_top15.csv)  
 
 
